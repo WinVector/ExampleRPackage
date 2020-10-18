@@ -1,0 +1,18 @@
+---
+title: "Example Vignette"
+author: "Your Name Here"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Example Vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+Example vignette
+
+```{r}
+library(ExampleRPackage)
+
+example_function(2)
+```

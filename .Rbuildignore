@@ -1,0 +1,14 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^CRAN-RELEASE$
+^Meta$
+^doc$
+^README.Rmd$
+^cran-comments.md$
+^LICENSE$
+^docs$
+^_pkgdown\.yml$
+^revdep$
+^\.travis\.yml$
+^.DS_Store$
+^.*~$

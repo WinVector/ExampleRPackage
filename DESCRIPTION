@@ -1,0 +1,26 @@
+Package: ExampleRPackage
+Type: Package
+Title: Evocative Package Title (Title Case)
+Version: 0.1.0
+Authors@R: c(
+    person("FirstName", "LastName", email = "email_address@example.com", role = c("aut", "cre", "cph"))
+  )
+Maintainer: FirstName LastName <email_address@example.com>
+Description: Short description of why one should use this package.
+    Used by CRAN, so check their rules on "Writing R Extensions" <https://cran.r-project.org/doc/manuals/r-release/R-exts.html>.
+URL: https://github.com/WinVector/ExampleRPackage
+License: GPL-2 | GPL-3
+Encoding: UTF-8
+RoxygenNote: 7.1.1
+Depends: 
+    R (>= 3.3.0)
+Imports: 
+    wrapr (>= 2.0.2)
+Suggests: 
+    knitr,
+    rmarkdown,
+    R.rsp, 
+    tinytest
+VignetteBuilder: knitr, R.rsp
+LazyData: true
+ByteCompile: true
