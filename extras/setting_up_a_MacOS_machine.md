@@ -8,6 +8,7 @@ To work effectively with R packages one needs to install R, complilers, git, and
 
 To install:
 
+  * **xcode** Install [xcode from the app store](https://apps.apple.com/us/app/xcode/id497799835).
   * **git.** Install git from [https://git-scm.com](https://git-scm.com).
   * **R.** Go to [https://cran.r-project.org/index.html](https://cran.r-project.org/index.html), and download and install.
   * **Latex** Go to [https://miktex.org/download](https://miktex.org/download) and download and install.
