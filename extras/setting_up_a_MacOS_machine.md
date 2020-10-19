@@ -12,8 +12,11 @@ To install:
   * **git.** Install git from [https://git-scm.com](https://git-scm.com).
   * **R.** Go to [https://cran.r-project.org/index.html](https://cran.r-project.org/index.html), and download and install.
   * **Latex** Go to [https://miktex.org/download](https://miktex.org/download) and download and install.
+  * **Pandoc** Install from [https://pandoc.org/installing.html](https://pandoc.org/installing.html).
 
 Another way to maintain Linux-style software on a Mac is to use Homebrew [https://brew.sh](https://brew.sh).
+
+Each machine is going to be a bit different. Paths with spaces in them can cause trouble for R, so try to avoid them. We confirmed these insstall instructions on MacOS 10.15.7 Catalina on Monday October 18th, 2020.
     
 Use R to install R packages.
 

@@ -12,7 +12,10 @@ To install:
   * **R.** Go to [https://cran.r-project.org/index.html](https://cran.r-project.org/index.html), click on "Download R for Windows" and then click on "base", and finally "Download R 4.0.3 for Windows".  Run the ".exe" when it has finished downloading.
   * **Rtools.** Go to [https://cran.r-project.org/index.html](https://cran.r-project.org/index.html), click on "Download R for Windows" and then click on "Rtools", and finally download and run "rtools40-x86_64.exe".
   * **Latex** Go to [https://miktex.org/download](https://miktex.org/download) and download and install.
+  * **Pandoc** Download and run the `.msi` file from [https://github.com/jgm/pandoc/releases/tag/2.11.0.2](https://github.com/jgm/pandoc/releases/tag/2.11.0.2) (linked from [https://pandoc.org/installing.html#windows](https://pandoc.org/installing.html#windows)).
 
+
+Note, for us the Rtools install would hang Microsoft Edge browser (likely at a hidden security prompt). So we suggest using [Firefox](https://www.mozilla.org/en-US/firefox/new/) for the downloads. Also, install full versions of all packages and use 64 bit versions if there is an option. Each machine is going to be a bit different. Paths with spaces in them can cause trouble for R, so try to avoid them. We confirmed these insstall instructions on a clean Windows 10 install on Monday October 19th, 2020.
     
 Use R to install R packages.
 

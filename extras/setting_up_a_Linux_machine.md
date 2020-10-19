@@ -15,6 +15,8 @@ Now add a bunch of support packages.
     sudo apt-get install curl xml2 libcurl4-openssl-dev libxml2-dev libssl-dev git qpdf pandoc gdebi-core
     sudo apt-get install texlive texstudio texinfo texlive-fonts-extra
 
+Each machine is going to be a bit different. Paths with spaces in them can cause trouble for R, so try to avoid them. We confirmed these insstall instructions on clean `Ubuntu` 20.04 machine on Sunda October 17th, 2020.
+
 Add an R distro to your package repository lists.
 
     # add the following line to /etc/apt/sources.list (no indent/initial spaces)
