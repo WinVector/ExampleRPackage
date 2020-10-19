@@ -13,17 +13,10 @@ What you will need for this lesson is:
  * A network connection.
  * To install the `R` packages listed in the next subsection.
  * A text editor or IDE (integrated development environment) for editing `R` files.
- * For the source-control steps a `git` client (either command line or graphical). `git` can be gotten from [https://git-scm.com](https://git-scm.com).
+ * For the source-control steps a `git` client (either command line or graphical).
  * Some ability to delete files/directories.
 
 ## Configuring your machine
-
-Inst
-
-
-## Packages we assume you have installed
-
-We assume your machine has a current working R, command-shell (bash / zsh), text editor (emacs, vim, or other), R, C compliler, git, and Latex.
 
 Instructions on how to configure a machine are given here
 
@@ -33,8 +26,15 @@ Instructions on how to configure a machine are given here
  
 These steps require some knowlege of working with your computer, network access, disk space, and admin rights. We strongly advise you take the steps in this section before class.
 
-Once you have your machine configured start up `R` and install the package we will be using.
+Once you have your machine configured start up `R` and install the packages we will be using.
 
+
+
+## Packages we assume you have installed
+
+We assume your machine has a current working R, command-shell (bash / zsh), text editor (emacs, vim, or other), R, C compliler, git, and Latex.
+
+Start R and run the following.
 
 ```
 install.packages(c(

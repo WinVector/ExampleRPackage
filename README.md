@@ -15,12 +15,26 @@ What you will need for this lesson is:
   - A text editor or IDE (integrated development environment) for
     editing `R` files.
   - For the source-control steps a `git` client (either command line or
-    graphical). `git` can be gotten from <https://git-scm.com>.
+    graphical).
   - Some ability to delete files/directories.
 
 ## Configuring your machine
 
-Inst
+Instructions on how to configure a machine are given here
+
+  - [How to configure Linux for R
+    work](https://github.com/WinVector/ExampleRPackage/blob/main/extras/setting_up_a_Linux_machine.md).
+  - [How to configure OSX for R
+    work](https://github.com/WinVector/ExampleRPackage/blob/main/extras/setting_up_a_MacOS_machine.md).
+  - [How to configure Windows for R
+    work](https://github.com/WinVector/ExampleRPackage/blob/main/extras/setting_up_a_Windows_machine.md).
+
+These steps require some knowlege of working with your computer, network
+access, disk space, and admin rights. We strongly advise you take the
+steps in this section before class.
+
+Once you have your machine configured start up `R` and install the
+packages we will be using.
 
 ## Packages we assume you have installed
 
@@ -28,19 +42,7 @@ We assume your machine has a current working R, command-shell (bash /
 zsh), text editor (emacs, vim, or other), R, C compliler, git, and
 Latex.
 
-Instructions on how to configure a machine are given here
-
-  - [How to configure Linux for R
-    work](https://github.com/WinVector/ExampleRPackage/blob/main/extras/setting_up_a_Linux_machine.md).
-  - How to configure OSX for R work.
-  - How to configure Windows for R work.
-
-These steps require some knowlege of working with your computer, network
-access, disk space, and admin rights. We strongly advise you take the
-steps in this section before class.
-
-Once you have your machine configured start up `R` and install the
-package we will be using.
+Start R and run the following.
 
     install.packages(c(
        "devtools",   # for working with packages
