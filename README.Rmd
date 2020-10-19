@@ -28,8 +28,8 @@ We assume your machine has a current working R, command-shell (bash / zsh), text
 Instructions on how to configure a machine are given here
 
  * [How to configure Linux for R work](https://github.com/WinVector/ExampleRPackage/blob/main/extras/setting_up_a_Linux_machine.md).
- * How to configure OSX for R work.
- * How to configure Windows for R work.
+ * [How to configure OSX for R work](https://github.com/WinVector/ExampleRPackage/blob/main/extras/setting_up_a_MacOS_machine.md).
+ * [How to configure Windows for R work](https://github.com/WinVector/ExampleRPackage/blob/main/extras/setting_up_a_Windows_machine.md).
  
 These steps require some knowlege of working with your computer, network access, disk space, and admin rights. We strongly advise you take the steps in this section before class.
 
