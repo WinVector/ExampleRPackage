@@ -3,6 +3,8 @@ Our example of how to set up a Linux machine is for `Ubuntu` 20.04.
 
 Find the terminal app and make sure it is in your favorites.
 
+## Installing R and support software
+
 Using the terminal install editors.
 
     sudo apt-get update
@@ -10,7 +12,7 @@ Using the terminal install editors.
     
 Now add a bunch of support packages.
 
-    sudo apt-get install curl xml2 libcurl4-openssl-dev libxml2-dev libssl-dev git qpdf pandoc 
+    sudo apt-get install curl xml2 libcurl4-openssl-dev libxml2-dev libssl-dev git qpdf pandoc gdebi-core
     sudo apt-get install texlive texstudio texinfo texlive-fonts-extra
 
 Add an R distro to your package repository lists.
@@ -62,4 +64,14 @@ Start to work on the package.
     library(ExampleRPackage)
     setwd("ExampleRPackage")
     tinytest::test_package("ExampleRPackage")
+
+## (Optional) Installing RStudio
+
+(From [https://rstudio.com/products/rstudio/download-server/debian-ubuntu/](https://rstudio.com/products/rstudio/download-server/debian-ubuntu/).)
+
+    wget https://download2.rstudio.org/server/bionic/amd64/rstudio-server-1.3.1093-amd64.deb
+    sudo gdebi rstudio-server-1.3.1093-amd64.deb
+    sudo rstudio-server restart
+
+Now open a web-browser to [http://127.0.0.1:8787/](http://127.0.0.1:8787/) and log in with your unix name and password.
 
