@@ -3,6 +3,10 @@ Our example of how to set up a Linux machine is for `Ubuntu` 20.04.
 
 Find the terminal app and make sure it is in your favorites.
 
+## Licensing
+
+R is under a GPL-2 license. This is compatible with Linux which is also under a GPL-2 license.
+
 ## Installing R and support software
 
 Using the terminal install editors.
