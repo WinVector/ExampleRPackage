@@ -8,35 +8,40 @@ README.
 
 What you will need for this lesson is:
 
-  - A working `R` of version at least as new as `3.6`, with `4.0.2`
+-   A working `R` of version at least as new as `3.6`, with `4.0.2`
     preferred.
-  - A network connection.
-  - To install the `R` packages listed in the next subsection.
-  - A text editor or IDE (integrated development environment) for
+-   A network connection.
+-   To install the `R` packages listed in the next subsection.
+-   A text editor or IDE (integrated development environment) for
     editing `R` files.
-  - For the source-control steps a `git` client (either command line or
+-   For the source-control steps a `git` client (either command line or
     graphical).
-  - Some ability to delete files/directories.
+-   Some ability to delete files/directories.
 
-## Configuring your machine
+Configuring your machine
+------------------------
 
 Instructions on how to configure a machine are given here
 
-  - [How to configure Linux for R
+-   [How to configure Linux for R
     work](https://github.com/WinVector/ExampleRPackage/blob/main/extras/setting_up_a_Linux_machine.md).
-  - [How to configure OSX for R
+-   [How to configure OSX for R
     work](https://github.com/WinVector/ExampleRPackage/blob/main/extras/setting_up_a_MacOS_machine.md).
-  - [How to configure Windows for R
+-   [How to configure Windows for R
     work](https://github.com/WinVector/ExampleRPackage/blob/main/extras/setting_up_a_Windows_machine.md).
 
 These steps require some knowlege of working with your computer, network
 access, disk space, and admin rights. We strongly advise you take the
-steps in this section before class.
+steps in this section before class. We also strongly advise taking the
+trouble to run these steps. Having full control of a package-enabled R
+environment is very powerful. Please reach out for help if you are stuck
+on steps.
 
 Once you have your machine configured start up `R` and install the
 packages we will be using.
 
-## Packages we assume you have installed
+Packages we assume you have installed
+-------------------------------------
 
 We assume your machine has a current working R, command-shell (bash /
 zsh), text editor (emacs, vim, or other), R, C compliler, git, and
@@ -57,7 +62,8 @@ Start R and run the following.
        "tinytest"    # for running tests
        ))
 
-## The file structure of this project
+The file structure of this project
+----------------------------------
 
     DESCRIPTION    # the main project control file
     R              # project source code directory
@@ -82,7 +88,8 @@ Start R and run the following.
     NAMESPACE      # project imports/exports, produced by roxygen2
     README.md      # package documentation, produced from README.Rmd
 
-## How to copy this project
+How to copy this project
+------------------------
 
 ### From GitHub
 
@@ -95,11 +102,11 @@ From a `bash`/`zsh` command line:
 
     # get a copy of the repository
     git clone https://github.com/WinVector/ExampleRPackage.git
-    
+
     # remove the .git directory to sever it from the original repository
     cd ExampleRPackage
     rm -rf .git
-    
+
     # start up a new git repository
     git init .
     git add -A .
@@ -122,7 +129,7 @@ One could try to issue the clone command using
 
     # move to a directory we are willing to work in
     setwd("~/Downloads")
-    
+
     # copy the directory
     git2r::clone(
        url = 'https://github.com/WinVector/ExampleRPackage.git',
@@ -130,17 +137,18 @@ One could try to issue the clone command using
        
     # move into project
     setwd('./ExampleRPackage')
-    
+
     # remove .git to break association with original GitHub project
     unlink('.git', recursive = TRUE)
-    
+
     # init a new repository, and add all content
     git2r::init()
     git2r::add(path = '.')
     # git2r::status()
     git2r::commit(message = 'example package')
 
-## Procedures for working with packages.
+Procedures for working with packages.
+-------------------------------------
 
 For all of these steps we are assuming your current directory is the
 top-level of the package you are working with. This can be accomplished
@@ -176,8 +184,8 @@ tinytest::test_package('ExampleRPackage')
 ```
 
 Running test\_ExampleRPackage.R…….. 0 tests Running
-test\_ExampleRPackage.R…….. 1 tests &#27;\[0;32mOK&#27;\[0m \[1\] “All
-ok, 1 results”
+test\_ExampleRPackage.R…….. 1 tests \[0;32mOK\[0m \[1\] “All ok, 1
+results”
 
 ``` r
 # test directory of tests
@@ -192,8 +200,8 @@ tinytest::run_test_dir(dir)
 ```
 
 Running test\_ExampleRPackage.R…….. 0 tests Running
-test\_ExampleRPackage.R…….. 1 tests &#27;\[0;32mOK&#27;\[0m \[1\] “All
-ok, 1 results”
+test\_ExampleRPackage.R…….. 1 tests \[0;32mOK\[0m \[1\] “All ok, 1
+results”
 
 ### Check package
 
@@ -217,7 +225,8 @@ ok, 1 results”
     library(ExampleRPackage)
     help(ExampleRPackage)
 
-## Example code
+Example code
+------------
 
 ``` r
 library(ExampleRPackage)

@@ -1,5 +1,5 @@
 
-Our example of how to set up a Linux machine is for `MacOS` Catalina (should work on earlier versions).
+Our example of how to set up a Linux machine is for `MacOS` Catalina (should work on earlier versions). This is to prepare for [our lesson on building your own R package](https://github.com/WinVector/ExampleRPackage).
 
 
 ## Installing R and support software

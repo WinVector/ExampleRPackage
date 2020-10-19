@@ -9,7 +9,7 @@ vignette: >
   \usepackage[utf8]{inputenc}
 ---
 
-Example vignette
+Example vignette. Part of [our lesson on building your own R package](https://github.com/WinVector/ExampleRPackage).
 
 ```{r}
 library(ExampleRPackage)

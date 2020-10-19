@@ -1,5 +1,5 @@
 
-Our example of how to set up a Linux machine is for `Ubuntu` 20.04.
+Our example of how to set up a Linux machine is for `Ubuntu` 20.04. This is to prepare for [our lesson on building your own R package](https://github.com/WinVector/ExampleRPackage).
 
 Find the terminal app and make sure it is in your favorites.
 
