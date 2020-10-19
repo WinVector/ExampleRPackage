@@ -67,7 +67,7 @@ Start to work on the package.
 
 ## (Optional) Installing RStudio
 
-*Warning*: the RStudio community offering is under an AGPL license. This license is very different than GPL2/3 (the common R licenses) not allowed at some companies (even those that do allow GPL2/3). So using RStudio's free offering may have legal consequences. Note: licenses are legal technical objects, so words are used in legal senses requiring expertise and knowledge of precedent to properly interpret.
+*Warning*: the RStudio community offering is under an AGPL license. This license is very different than GPL2/3 (the common R licenses) and not allowed at some companies (even those that do allow GPL2/3). So using RStudio's free offering may have legal consequences different than from running R and Linux. Note: licenses are legal technical objects, so words are used in legal senses requiring expertise and knowledge of precedent to properly interpret.
 
 
 (From [https://rstudio.com/products/rstudio/download-server/debian-ubuntu/](https://rstudio.com/products/rstudio/download-server/debian-ubuntu/).)
