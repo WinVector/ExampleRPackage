@@ -67,11 +67,14 @@ Start to work on the package.
 
 ## (Optional) Installing RStudio
 
+*Warning*: the RStudio community offering is under an AGPL license. This license is very different than GPL2/3 (the common R licenses) not allowed at some companies (even those that do allow GPL2/3). So using RStudio's free offering may have legal consequences. Note: licenses are legal technical objects, so words are used in legal senses requiring expertise and knowledge of precedent to properly interpret.
+
+
 (From [https://rstudio.com/products/rstudio/download-server/debian-ubuntu/](https://rstudio.com/products/rstudio/download-server/debian-ubuntu/).)
 
     wget https://download2.rstudio.org/server/bionic/amd64/rstudio-server-1.3.1093-amd64.deb
     sudo gdebi rstudio-server-1.3.1093-amd64.deb
     sudo rstudio-server restart
 
-Now open a web-browser to [http://127.0.0.1:8787/](http://127.0.0.1:8787/) and log in with your unix name and password.
+Now open a web-browser to [http://127.0.0.1:8787/](http://127.0.0.1:8787/) and log in with your Unix name and password.
 
