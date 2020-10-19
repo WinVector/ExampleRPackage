@@ -31,7 +31,7 @@ Now install R.
     
 Use R to install R packages.
 
-    R
+    R --no-restore
     install.packages(c(
        "devtools",   # for working with packages
        "roxygen2",   # to generate manuals from comments
@@ -43,7 +43,7 @@ Use R to install R packages.
        "remotes",    # for installing from GitHub directly
        "tinytest"    # for running tests
        ))
-    quit()
+    quit(save = 'no')
 
 
 Back at the bash or zsh bring in our example package.
@@ -52,13 +52,13 @@ Back at the bash or zsh bring in our example package.
     
 Start to work on the package.
 
-    R
+    R --no-restore
     setwd("ExampleRPackage")
     devtools::build()
     install.packages('~/ExampleRPackage_0.1.0.tar.gz', repos = NULL)
-    quit()
+    quit(save = 'no')
     
-    R
+    R --no-restore
     library(ExampleRPackage)
     setwd("ExampleRPackage")
     tinytest::test_package("ExampleRPackage")
