@@ -15,12 +15,11 @@ RoxygenNote: 7.1.1
 Depends: 
     R (>= 3.3.0)
 Imports: 
-    wrapr (>= 2.0.2)
+    wrapr (>= 2.0.4)
 Suggests: 
     knitr,
     rmarkdown,
-    R.rsp, 
     tinytest
-VignetteBuilder: knitr, R.rsp
+VignetteBuilder: knitr
 LazyData: true
 ByteCompile: true
