@@ -17,6 +17,7 @@ What you will need for this lesson is:
 -   For the source-control steps a `git` client (either command line or
     graphical).
 -   Some ability to delete files/directories.
+-   A command-line shell able to run `R CMD` steps.
 
 Configuring your machine
 ------------------------
@@ -30,34 +31,37 @@ Instructions on how to configure a machine are given here
 -   [How to configure Windows for R
     work](https://github.com/WinVector/ExampleRPackage/blob/main/extras/setting_up_a_Windows_machine.md).
 
-These steps require some knowlege of working with your computer, network
-access, disk space, and admin rights. We strongly advise you take the
-steps in this section before class. We also strongly advise taking the
-trouble to run these steps. Having full control of a package-enabled R
-environment is very powerful. Please reach out for help if you are stuck
-on steps.
+These steps require some knowledge of working with your computer,
+network access, disk space, and admin rights. We strongly advise you
+take the steps in this section before class. We also strongly advise
+taking the trouble to run these steps. Having full control of a
+package-enabled R environment is very powerful. Please reach out for
+help if you are stuck on steps.
 
 Once you have your machine configured start up `R` and install the
 packages we will be using.
+
+A word of warning
+-----------------
+
+There are many systems and tutorials that sit on top of higher order R
+tools. These can be useful, but, one must remember in R [“Writing R
+Extensions”](https://cran.r-project.org/doc/manuals/R-exts.html) is the
+primary source for how to develop R packges.
 
 Packages we assume you have installed
 -------------------------------------
 
 We assume your machine has a current working R, command-shell (bash /
-zsh), text editor (emacs, vim, or other), R, C compliler, git, and
-Latex.
+zsh), text editor (emacs, vim, or other), R, C compiler, git, and Latex.
 
 Start R and run the following.
 
     install.packages(c(
-       "devtools",   # for working with packages
        "roxygen2",   # to generate manuals from comments
        "wrapr",      # example for argument list checking
        "knitr",      # to generate vignettes from markdown
-       "rmarkdown",  # to generate vignettes from markdown
-       "R.rsp",      # to pass pre-generated PDF as vignettes
-       "inputenc",   # used by the vignette system
-       "git2r",      # for direct in-R git work
+       "rmarkdown",  # to convert markdown formats
        "remotes",    # for installing from GitHub directly
        "tinytest"    # for running tests
        ))
@@ -122,31 +126,6 @@ instructions (adding a remote).
        Repository URL: https://github.com/WinVector/ExampleRPackage.git
        Package name: name of your choice (try ExampleRPackage first).
 
-### From `R`
-
-One could try to issue the clone command using
-[git2r](https://CRAN.R-project.org/package=git2r).
-
-    # move to a directory we are willing to work in
-    setwd("~/Downloads")
-
-    # copy the directory
-    git2r::clone(
-       url = 'https://github.com/WinVector/ExampleRPackage.git',
-       local_path = './ExampleRPackage')
-       
-    # move into project
-    setwd('./ExampleRPackage')
-
-    # remove .git to break association with original GitHub project
-    unlink('.git', recursive = TRUE)
-
-    # init a new repository, and add all content
-    git2r::init()
-    git2r::add(path = '.')
-    # git2r::status()
-    git2r::commit(message = 'example package')
-
 Procedures for working with packages.
 -------------------------------------
 
@@ -162,12 +141,14 @@ project, which largely keeps track of the working directory.
 ### Rebuild Package
 
     # regenerate man/.Rd files from roxygen comments
-    devtools::document()
+    roxygen2::roxygenize()
     # rebuild a source distribution of package
-    pkg_file <- devtools::build()
-    print(pkg_file)
+    # produces ExampleRPackage_0.1.0.tar.gz
+    system("R CMD build .")
     # install the package from the source distribution
-    install.packages(pkg_file, repos = NULL)
+    install.packages("ExampleRPackage_0.1.0.tar.gz", repos = NULL)
+    # attach package for use
+    library(ExampleRPackage)
 
 Probably want to restart `R` at this point and re-attach the package
 with `library(ExampleRPackage)`.
@@ -203,27 +184,17 @@ Running test\_ExampleRPackage.R…….. 0 tests Running
 test\_ExampleRPackage.R…….. 1 tests \[0;32mOK\[0m \[1\] “All ok, 1
 results”
 
-### Check package
-
-    devtools::check(document = FALSE)
-
 ### Build source package for distribution and sharing
 
-    devtools::build()
+We will run this with our working directory inside our package (please
+see `getwd()`/`setwd()` for how to navigate between directories in R).
+This will produce the file `ExampleRPackage_0.1.0.tar.gz`.
 
-### Install package from github
+    system("R CMD build .")
 
-    remotes::install_github("https://github.com/WinVector/ExampleRPackage")
+### Check package
 
-### List vignettes
-
-    library(ExampleRPackage)
-    vignette(package = "ExampleRPackage")
-
-### Get Help
-
-    library(ExampleRPackage)
-    help(ExampleRPackage)
+    system("R CMD check ExampleRPackage_0.1.0.tar.gz")
 
 Example code
 ------------
@@ -235,3 +206,10 @@ example_function(3)
 ```
 
     ## [1] 4
+
+Sharing packages
+----------------
+
+### Install package from github
+
+    remotes::install_github("https://github.com/WinVector/ExampleRPackage")

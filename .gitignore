@@ -9,3 +9,7 @@ inst/doc
 revdep
 CRAN-RELEASE
 doc
+..Rcheck
+ExampleRPackage.Rcheck
+ExampleRPackage_0.1.0.tar.gz
+

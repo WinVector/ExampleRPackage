@@ -13,3 +13,7 @@
 ^.DS_Store$
 ^.*~$
 ^extras$
+^..Rcheck$
+^ExampleRPackage.Rcheck$
+^ExampleRPackage_0.1.0.tar.gz$
+
