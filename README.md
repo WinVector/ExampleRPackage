@@ -71,27 +71,35 @@ The file structure of this project
 ----------------------------------
 
     DESCRIPTION    # the main project control file
+
     R              # project source code directory
      /example_function.R  # our example function
      /package_help.R      # package documentation
+     
     README.Rmd     # package documentation source
+    README.md      # package documentation, produced from README.Rmd
+
     inst           # installed items distributed with package
         /tinytest  # package test directory
         /tinytest/test_ExampleRPackage.R  # the one test we have now
+
     vignettes      # where we place longer documents
              /Example_Vignette.Rmd  # Example markdown document
-             /Peter_Winkler_Seven_Puzzles.pdf  # Example pre-rendered pdf
-             /Peter_Winkler_Seven_Puzzles.pdf.asis  # pdf control
+
     tests             # test trigger, do not edit
          /tinytest.R  # test trigger, do not edit
+
     .Rbuildignore  # file that tells the builder what files to ignore
+
     .gitignore     # file that tells version control what files to skip
-    ExampleRPackage.Rproj   # (optional) config file for RStudio
+
+    NAMESPACE      # project imports/exports, produced by roxygen2
+
     man            # roxygen2 generated documentation
        /ExampleRPackage.Rd   # generated package documentation
        /example_function.Rd  # generated function documentation
-    NAMESPACE      # project imports/exports, produced by roxygen2
-    README.md      # package documentation, produced from README.Rmd
+
+    ExampleRPackage.Rproj   # (optional) config file for RStudio
 
 How to copy this project
 ------------------------
