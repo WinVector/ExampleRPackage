@@ -11,4 +11,6 @@ CRAN-RELEASE
 doc
 ..Rcheck
 ExampleRPackage.Rcheck
+man
+NAMESPACE
 
