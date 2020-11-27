@@ -53,18 +53,17 @@ Packages we assume you have installed
 -------------------------------------
 
 We assume your machine has a current working R, command-shell (bash /
-zsh), text editor (emacs, vim, or other), R, C compiler, git, and Latex.
+zsh), and text editor (emacs, vim, or other).
 
 Start R and run the following.
 
 ``` r
 install.packages(c(
+   "tinytest",   # for running tests
    "roxygen2",   # to generate manuals from comments
-   "wrapr",      # example for argument list checking
    "knitr",      # to generate vignettes from markdown
-   "rmarkdown",  # to convert markdown formats
-   "remotes",    # for installing from GitHub directly
-   "tinytest"    # for running tests
+   "rmarkdown",  # to convert markdown formats, may not need this
+   "wrapr"       # example for argument list checking
    ))
 ```
 
@@ -361,10 +360,18 @@ example_function(3)
 Sharing packages
 ----------------
 
-### Install from tar
+### Install from file
 
 ``` r
 install.packages(tar_name, repos = NULL)
+```
+
+### Install from tar on github
+
+``` r
+# get this path by copying Github's download link
+url <- "https://github.com/WinVector/ExampleRPackage/raw/main/ExampleRPackage_0.1.0.tar.gz"
+install.packages(url, repos = NULL)
 ```
 
 ### Install package from github
@@ -372,3 +379,36 @@ install.packages(tar_name, repos = NULL)
 ``` r
 remotes::install_github("https://github.com/WinVector/ExampleRPackage")
 ```
+
+Submitting to CRAN
+------------------
+
+Submitting to CRAN is a specialized step. First your package must pass
+all checks and all CRAN rules (most of which are listed in [“Writing R
+Extensions”](https://cran.r-project.org/doc/manuals/R-exts.html)). It is
+important to note the following:
+
+-   The purpose of CRAN, as stated by some members, is a reliable
+    experience for users electing to take packages from CRAN. CRAN
+    considers unreliability in single extension packages as reputation
+    risk for R/CRAN itself. Note this is different purpose than serving
+    package authors.
+-   CRAN is *not* a test system, the assumption is you are only
+    submitting packages that should pass all requirements to CRAN- not
+    using CRAN to confirm the package meets requirements.
+-   All initial package submissions to CRAN are hand-checked with a
+    emphasis on the package purpose and description.
+-   Minimizing dependencies (and not having non-CRAN dependencies) is a
+    must. I believe CRAN currently checks if packages import more than
+    20 non-default dependencies and raises on issue.
+-   Do not get “lawyerly” with CRAN. CRAN feedback tends to have a
+    purpose. It may appear to the non-cognoscenti that some packages
+    have variances or are allowed around the rules. Either this is not
+    the case, or it is a point of strong negative contention. In either
+    case it is *not* a good idea to attempt to copy bad practices from
+    other packages.
+-   CRAN packages must be testable in isolation and free of file-system
+    side-effects.
+
+For now I am going to leave CRAN submissions as a “to be covered later”
+topic.
