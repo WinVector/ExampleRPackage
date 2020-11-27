@@ -120,12 +120,6 @@ Then associate the package with your own repository by creating an new
 empty repository on GitHub and following their “preexisting project”
 instructions (adding a remote).
 
-### From `RStudio`
-
-    File -> New Project -> Version Control -> Git
-       Repository URL: https://github.com/WinVector/ExampleRPackage.git
-       Package name: name of your choice (try ExampleRPackage first).
-
 Procedures for working with packages.
 -------------------------------------
 
