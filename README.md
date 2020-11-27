@@ -8,7 +8,7 @@ README.
 
 What you will need for this lesson is:
 
--   A working `R` of version at least as new as `3.6`, with `4.0.2`
+-   A working `R` of version at least as new as `3.6`, with `4.*`
     preferred.
 -   A network connection.
 -   To install the `R` packages listed in the next subsection.
@@ -57,14 +57,16 @@ zsh), text editor (emacs, vim, or other), R, C compiler, git, and Latex.
 
 Start R and run the following.
 
-    install.packages(c(
-       "roxygen2",   # to generate manuals from comments
-       "wrapr",      # example for argument list checking
-       "knitr",      # to generate vignettes from markdown
-       "rmarkdown",  # to convert markdown formats
-       "remotes",    # for installing from GitHub directly
-       "tinytest"    # for running tests
-       ))
+``` r
+install.packages(c(
+   "roxygen2",   # to generate manuals from comments
+   "wrapr",      # example for argument list checking
+   "knitr",      # to generate vignettes from markdown
+   "rmarkdown",  # to convert markdown formats
+   "remotes",    # for installing from GitHub directly
+   "tinytest"    # for running tests
+   ))
+```
 
 The file structure of this project
 ----------------------------------
@@ -128,24 +130,127 @@ top-level of the package you are working with. This can be accomplished
 with the `setwd()` command. Alternately one can use an `RStudio`
 project, which largely keeps track of the working directory.
 
-### Build `README.md` from `README.Rmd`
+### Build Package
 
-    knitr::knit("README.Rmd")
+We will run this with our working directory inside our package (please
+see `getwd()`/`setwd()` for how to navigate between directories in R).
+This will produce the file `ExampleRPackage_0.1.0.tar.gz`.
 
-### Rebuild Package
+``` r
+library(wrapr)
 
-    # regenerate man/.Rd files from roxygen comments
-    roxygen2::roxygenize()
-    # rebuild a source distribution of package
-    # produces ExampleRPackage_0.1.0.tar.gz
-    system("R CMD build .")
-    # install the package from the source distribution
-    install.packages("ExampleRPackage_0.1.0.tar.gz", repos = NULL)
-    # attach package for use
-    library(ExampleRPackage)
+# assumes our current directory is our package
+# see setwd()/getwd() for how to change directories
+rebuild_current_package_and_attach <- function(
+   ...,  # not used, force later arguments to bind by name
+   package_dir = getwd(),  # default to package is current directory.
+   lib = .libPaths()[[1]]  # where to attach package
+   ) {
+   wrapr::stop_if_dot_args(substitute(list(...)), "rebuild_current_package")
+   start_time <- date()
+   message(paste("rebuild_current_package working in directory", package_dir))
+   message(paste("rebuild_current_package working in lib", lib))
+   # get package name from current directory
+   pkg_name <- tail(strsplit(package_dir, .Platform$file.sep)[[1]], n = 1)
+   message(paste("rebuild_current_package working on package", pkg_name))
+   # get into a clean state with no package installed/attached
+   detach_str <- paste0('package:', pkg_name)
+   res <- tryCatch(do.call(detach, list(detach_str)), error = function(e) e)
+   if(pkg_name %in% rownames(installed.packages())) {
+      remove.packages(pkg_name, lib = lib)
+   }
+   # regenerate man/.Rd files from roxygen comments
+   res_text <- capture.output(suppressMessages(roxygen2::roxygenize(package.dir = package_dir)))
+   # rebuild a source distribution of package
+   res <- system(paste("R CMD build", package_dir), 
+                 intern = TRUE)
+   # find the tar name
+   matches <- res[grepl(pkg_name, res)]
+   pkg_pattern <- paste0(pkg_name, '[_.0-9]+', '.tar.gz')
+   matches <- matches[grepl(pkg_pattern, matches)]
+   if(length(matches) != 1) {
+      stop("having trouble finding package tar name from R CMD build output")
+   }
+   str_span <- regexpr(pkg_pattern, matches)
+   tar_name <- substr(matches, str_span, str_span + attr(str_span, 'match.length') - 1)
+   # install the package from the source distribution
+   res_text <- capture.output(install.packages(tar_name, repos = NULL, verbose = FALSE, quiet = TRUE))
+   # attach package for use
+   res_text <- capture.output(library(pkg_name, character.only = TRUE))
+   end_time <- date()
+   return(list(
+      pkg_name = pkg_name,
+      tar_name = tar_name,
+      package_dir = package_dir,
+      package_dir = package_dir,
+      lib = lib,
+      start_time = start_time,
+      end_time = end_time
+   ))
+}
+```
+
+``` r
+# re-document, re-build, re-install, and re-attach package
+# write only name of package and tar file name into current work-space
+(unpack[pkg_name, tar_name] := rebuild_current_package_and_attach())
+
+# rebuild_current_package working in directory /Users/johnmount/Documents/work/ExampleRPackage
+# rebuild_current_package working in lib /Users/johnmount/Library/R/4.0/library
+# rebuild_current_package working on package ExampleRPackage
+# 
+# $pkg_name
+# [1] "ExampleRPackage"
+# 
+# $tar_name
+# [1] "ExampleRPackage_0.1.0.tar.gz"
+# 
+# $package_dir
+# [1] "/Users/johnmount/Documents/work/ExampleRPackage"
+# 
+# $package_dir
+# [1] "/Users/johnmount/Documents/work/ExampleRPackage"
+# 
+# $lib
+# [1] "/Users/johnmount/Library/R/4.0/library"
+# 
+# $start_time
+# [1] "Fri Nov 27 11:13:31 2020"
+# 
+# $end_time
+# [1] "Fri Nov 27 11:13:35 2020"
+```
+
+``` r
+ls()
+```
+
+    ## [1] "pkg_name"                           "rebuild_current_package_and_attach"
+    ## [3] "tar_name"
+
+``` r
+print(pkg_name)
+```
+
+    ## [1] "ExampleRPackage"
+
+``` r
+print(tar_name)
+```
+
+    ## [1] "ExampleRPackage_0.1.0.tar.gz"
 
 Probably want to restart `R` at this point and re-attach the package
 with `library(ExampleRPackage)`.
+
+### Build `README.md` from `README.Rmd`
+
+``` r
+knitr::knit("README.Rmd")
+```
+
+Some time after rebuilding `README.md` you may want to rebuild the
+package again to make sure the new copy is included in the package tar.
 
 ### Run tests
 
@@ -154,48 +259,100 @@ be configured to work with `tinytest` by running
 `tinytest::setup_tinytest('.')`.
 
 ``` r
-# test package
-tinytest::test_package('ExampleRPackage')
-```
-
-Running test\_ExampleRPackage.R…….. 0 tests Running
-test\_ExampleRPackage.R…….. 1 tests \[0;32mOK\[0m \[1\] “All ok, 1
-results”
-
-``` r
 # test directory of tests
-dir <- system.file('tinytest', package = 'ExampleRPackage', mustWork = TRUE)
+dir <- system.file('tinytest', 
+                   package = 'ExampleRPackage', 
+                   mustWork = TRUE)
 print(dir)
 ```
 
-\[1\] “/Users/johnmount/Library/R/4.0/library/ExampleRPackage/tinytest”
+    ## [1] "/Users/johnmount/Library/R/4.0/library/ExampleRPackage/tinytest"
 
 ``` r
-tinytest::run_test_dir(dir)
+test_text <- capture.output(tinytest::run_test_dir(
+   dir,
+   verbose = TRUE,
+   color = FALSE))
+cat(paste(test_text, collapse = '\n'))
 ```
 
-Running test\_ExampleRPackage.R…….. 0 tests Running
-test\_ExampleRPackage.R…….. 1 tests \[0;32mOK\[0m \[1\] “All ok, 1
-results”
-
-### Build source package for distribution and sharing
-
-We will run this with our working directory inside our package (please
-see `getwd()`/`setwd()` for how to navigate between directories in R).
-This will produce the file `ExampleRPackage_0.1.0.tar.gz`.
-
-    system("R CMD build .")
+    ## Running test_ExampleRPackage.R........    1 tests OK 
+    ## [1] "All ok, 1 results"
 
 ### Check package
 
-    system("R CMD check ExampleRPackage_0.1.0.tar.gz")
+``` r
+check_text <- system(paste("R CMD check", tar_name),
+       intern = TRUE)
+cat(paste(check_text, collapse = '\n'))
+```
+
+    ## * using log directory ‘/Users/johnmount/Documents/work/ExampleRPackage/ExampleRPackage.Rcheck’
+    ## * using R version 4.0.2 (2020-06-22)
+    ## * using platform: x86_64-apple-darwin17.0 (64-bit)
+    ## * using session charset: UTF-8
+    ## * checking for file ‘ExampleRPackage/DESCRIPTION’ ... OK
+    ## * checking extension type ... Package
+    ## * this is package ‘ExampleRPackage’ version ‘0.1.0’
+    ## * package encoding: UTF-8
+    ## * checking package namespace information ... OK
+    ## * checking package dependencies ... OK
+    ## * checking if this is a source package ... OK
+    ## * checking if there is a namespace ... OK
+    ## * checking for executable files ... OK
+    ## * checking for hidden files and directories ... OK
+    ## * checking for portable file names ... OK
+    ## * checking for sufficient/correct file permissions ... OK
+    ## * checking whether package ‘ExampleRPackage’ can be installed ... OK
+    ## * checking installed package size ... OK
+    ## * checking package directory ... OK
+    ## * checking ‘build’ directory ... OK
+    ## * checking DESCRIPTION meta-information ... OK
+    ## * checking top-level files ... OK
+    ## * checking for left-over files ... OK
+    ## * checking index information ... OK
+    ## * checking package subdirectories ... OK
+    ## * checking R files for non-ASCII characters ... OK
+    ## * checking R files for syntax errors ... OK
+    ## * checking whether the package can be loaded ... OK
+    ## * checking whether the package can be loaded with stated dependencies ... OK
+    ## * checking whether the package can be unloaded cleanly ... OK
+    ## * checking whether the namespace can be loaded with stated dependencies ... OK
+    ## * checking whether the namespace can be unloaded cleanly ... OK
+    ## * checking loading without being on the library search path ... OK
+    ## * checking dependencies in R code ... OK
+    ## * checking S3 generic/method consistency ... OK
+    ## * checking replacement functions ... OK
+    ## * checking foreign function calls ... OK
+    ## * checking R code for possible problems ... OK
+    ## * checking Rd files ... OK
+    ## * checking Rd metadata ... OK
+    ## * checking Rd cross-references ... OK
+    ## * checking for missing documentation entries ... OK
+    ## * checking for code/documentation mismatches ... OK
+    ## * checking Rd \usage sections ... OK
+    ## * checking Rd contents ... OK
+    ## * checking for unstated dependencies in examples ... OK
+    ## * checking installed files from ‘inst/doc’ ... OK
+    ## * checking files in ‘vignettes’ ... OK
+    ## * checking examples ... OK
+    ## * checking for unstated dependencies in ‘tests’ ... OK
+    ## * checking tests ...
+    ##  OK
+    ## * checking for unstated dependencies in vignettes ... OK
+    ## * checking package vignettes in ‘inst/doc’ ... OK
+    ## * checking running R code from vignettes ...
+    ##   ‘Example_Vignette.Rmd’ using ‘UTF-8’... OK
+    ##  NONE
+    ## * checking re-building of vignette outputs ... OK
+    ## * checking PDF version of manual ... OK
+    ## * DONE
+    ## Status: OK
 
 Example code
 ------------
 
 ``` r
-library(ExampleRPackage)
-
 example_function(3)
 ```
 
@@ -204,6 +361,14 @@ example_function(3)
 Sharing packages
 ----------------
 
+### Install from tar
+
+``` r
+install.packages(tar_name, repos = NULL)
+```
+
 ### Install package from github
 
-    remotes::install_github("https://github.com/WinVector/ExampleRPackage")
+``` r
+remotes::install_github("https://github.com/WinVector/ExampleRPackage")
+```
